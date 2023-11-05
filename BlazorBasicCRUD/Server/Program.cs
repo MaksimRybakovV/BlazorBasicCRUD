@@ -1,4 +1,6 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using BlazorBasicCRUD.Server.Data;
+using BlazorBasicCRUD.Server.Services.CompanyService;
+using BlazorBasicCRUD.Server.Services.EmployeeService;
 
 namespace BlazorBasicCRUD
 {
@@ -12,6 +14,9 @@ namespace BlazorBasicCRUD
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+            builder.Services.AddDbContext<DataContext>();
+            builder.Services.AddScoped<ICompanyService, CompanyService>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
             var app = builder.Build();
 
