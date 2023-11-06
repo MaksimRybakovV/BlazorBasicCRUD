@@ -28,7 +28,7 @@ namespace BlazorBasicCRUD.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("BlazorBasicCRUD.Shared.Models.Employee", b =>
@@ -58,7 +58,7 @@ namespace BlazorBasicCRUD.Server.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("TodoTasks");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("BlazorBasicCRUD.Shared.Models.Employee", b =>

@@ -10,7 +10,7 @@ namespace BlazorBasicCRUD.Server.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlite($"DataSource={Environment.CurrentDirectory}/Data/DataBase/SimpleTodoListDB.db");
+            optionsBuilder.UseSqlite($"DataSource={Environment.CurrentDirectory}/Data/DataBase/SimpleBlazorDB.db");
         }
 
         public DbSet<Company> Companies => Set<Company>();

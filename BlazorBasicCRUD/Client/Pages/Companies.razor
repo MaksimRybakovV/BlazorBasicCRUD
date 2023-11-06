@@ -1,0 +1,29 @@
+﻿@page "/companies"
+@inject IHttpService _service
+
+<PageTitle>Companies</PageTitle>
+
+<h3>Companies</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in _service.Companies)
+        {
+            <tr>
+                <td>@company.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await _service.GetCompanies();
+    }
+}

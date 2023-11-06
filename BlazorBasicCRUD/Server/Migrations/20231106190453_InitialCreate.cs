@@ -11,7 +11,7 @@ namespace BlazorBasicCRUD.Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "Companies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -20,11 +20,11 @@ namespace BlazorBasicCRUD.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Companies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TodoTasks",
+                name: "Employees",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -37,18 +37,18 @@ namespace BlazorBasicCRUD.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoTasks", x => x.Id);
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TodoTasks_Users_CompanyId",
+                        name: "FK_Employees_Companies_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Users",
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TodoTasks_CompanyId",
-                table: "TodoTasks",
+                name: "IX_Employees_CompanyId",
+                table: "Employees",
                 column: "CompanyId");
         }
 
@@ -56,10 +56,10 @@ namespace BlazorBasicCRUD.Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TodoTasks");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Companies");
         }
     }
 }

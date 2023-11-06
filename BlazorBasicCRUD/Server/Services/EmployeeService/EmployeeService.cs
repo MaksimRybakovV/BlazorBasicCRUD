@@ -31,6 +31,7 @@ namespace BlazorBasicCRUD.Server.Services.EmployeeService
             try
             {
                 var employee = await _context.Employees
+                    .Include(e => e.Company)
                     .SingleOrDefaultAsync(e => e.Id == id)
                     ?? throw new Exception($"Employee with Id '{id}' not found!");
 
@@ -52,6 +53,7 @@ namespace BlazorBasicCRUD.Server.Services.EmployeeService
             var response = new ServiceResponse<List<Employee>>();
 
             response.Data = await _context.Employees
+                .Include(e => e.Company)
                 .ToListAsync();
 
             return response;

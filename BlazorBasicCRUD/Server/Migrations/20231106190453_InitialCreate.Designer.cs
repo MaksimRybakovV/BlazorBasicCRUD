@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorBasicCRUD.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231105180754_InitialCreate")]
+    [Migration("20231106190453_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -31,7 +31,7 @@ namespace BlazorBasicCRUD.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("BlazorBasicCRUD.Shared.Models.Employee", b =>
@@ -61,7 +61,7 @@ namespace BlazorBasicCRUD.Server.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("TodoTasks");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("BlazorBasicCRUD.Shared.Models.Employee", b =>
