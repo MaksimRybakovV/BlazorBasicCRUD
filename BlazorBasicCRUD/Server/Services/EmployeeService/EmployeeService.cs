@@ -19,7 +19,7 @@ namespace BlazorBasicCRUD.Server.Services.EmployeeService
             await _context.Employees.AddAsync(newEmployee);
             await _context.SaveChangesAsync();
             var employee = _context.Employees
-                    .Max(e => e.Id);
+                .Max(e => e.Id);
             response.Data = employee;
             return response;
         }
@@ -96,6 +96,7 @@ namespace BlazorBasicCRUD.Server.Services.EmployeeService
                 employee.JobTitle = updatedEmployee.JobTitle;
                 employee.CompanyId = updatedEmployee.CompanyId;
 
+                await _context.SaveChangesAsync();
                 response.Data = $"Employee with Id '{updatedEmployee.Id}' updated!";
             }
             catch (Exception ex)

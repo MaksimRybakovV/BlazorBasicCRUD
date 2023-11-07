@@ -1,5 +1,6 @@
 ﻿@page "/employees"
 @inject IHttpService _service
+@inject NavigationManager _navigation
 
 <PageTitle>Employees</PageTitle>
 
@@ -24,14 +25,28 @@
                 <td>@employee.Age</td>
                 <td>@employee.JobTitle</td>
                 <td>@employee.Company!.Name</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="(() => ShowDetails(employee.Id))"><i class="oi oi-pencil"></i></button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+<button class="btn btn-primary" @onclick="CreateEmployee">Create new employee</button>
 
 @code {
     protected override async Task OnInitializedAsync()
     {
         await _service.GetEmployees();
+    }
+
+    private void ShowDetails(int id)
+    {
+        _navigation.NavigateTo($"employee/{id}");
+    }
+
+    private void CreateEmployee()
+    {
+        _navigation.NavigateTo($"employee");
     }
 }

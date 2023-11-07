@@ -37,10 +37,6 @@ namespace BlazorBasicCRUD.Server.Controllers
         public async Task<ActionResult<ServiceResponse<int>>> PostEmployee(Employee newEmployee)
         {
             var response = await _service.AddEmployeeAsync(newEmployee);
-
-            if (response.Data == 0)
-                return NotFound(response);
-
             return Ok(response);
         }
 

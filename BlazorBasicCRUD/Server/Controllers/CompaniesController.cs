@@ -37,10 +37,6 @@ namespace BlazorBasicCRUD.Server.Controllers
         public async Task<ActionResult<ServiceResponse<int>>> PostCompany(Company newCompany)
         {
             var response = await _service.AddCompanyAsync(newCompany);
-
-            if (response.Data == 0)
-                return NotFound(response);
-
             return Ok(response);
         }
 

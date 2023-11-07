@@ -90,6 +90,7 @@ namespace BlazorBasicCRUD.Server.Services.CompanyService
 
                 company.Name = updatedCompany.Name;
 
+                await _context.SaveChangesAsync();
                 response.Data = $"Company with Id '{updatedCompany.Id}' updated!";
             }
             catch (Exception ex)

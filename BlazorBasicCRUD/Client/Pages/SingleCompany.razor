@@ -1,0 +1,65 @@
+﻿@page "/company"
+@page "/company/{id:int}"
+@inject IHttpService _service
+
+@if (Id is null)
+{
+    <PageTitle>Create a new company</PageTitle>
+    <h3>Create a new company</h3>
+}
+else
+{
+    <PageTitle>Edit @_company.Name</PageTitle>
+    <h3>Edit @_company.Name</h3>
+}
+
+<EditForm Model="_company" OnSubmit="HandleSubmit">
+    <div>
+        <label for="name">Name</label>
+        <InputText id="name" @bind-Value="_company.Name" class="form-control"></InputText>
+    </div>
+    <button type="submit" class="btn btn-primary">@_buttonText</button>
+    <button type="button" class="btn btn-danger" @onclick="DeleteCompany">Delete company</button>
+</EditForm>
+
+
+@code {
+    private Company _company = new();
+    private string _buttonText = string.Empty;
+
+    [Parameter]
+    public int? Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _buttonText = Id == null ? "Create new company" : "Update company";
+        await _service.GetCompanies();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id is not null)
+        {
+            var response = await _service.GetCompany((int)Id!);
+            if (response.Data is not null)
+                _company = response.Data;
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (Id is null)
+        {
+            await _service.AddCompany(_company);
+        }
+        else
+        {
+            await _service.UpdateCompany(_company);
+        }
+    }
+
+    private async Task DeleteCompany()
+    {
+        await _service.DeleteCompany(_company.Id);
+    }
+}
