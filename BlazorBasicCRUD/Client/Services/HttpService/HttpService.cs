@@ -25,6 +25,14 @@ namespace BlazorBasicCRUD.Client.Services.HttpService
                 Employees = response.Data;
         }
 
+        public async Task<PageServiceResponse<List<Employee>>> GetPageEmployees(int page, int pageSize)
+        {
+            var response = await _client.GetFromJsonAsync<PageServiceResponse<List<Employee>>>($"api/employees/pagination?page={page}&pageSize={pageSize}");
+            if (response?.IsSuccessful == true)
+                Employees = response.Data;
+            return response!;
+        }
+
         public async Task<ServiceResponse<Employee>> GetEmployee(int id)
         {
             var response = await _client.GetFromJsonAsync<ServiceResponse<Employee>>($"api/employees/{id}");

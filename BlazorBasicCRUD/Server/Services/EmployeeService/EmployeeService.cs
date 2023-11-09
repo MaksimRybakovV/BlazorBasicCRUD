@@ -80,6 +80,37 @@ namespace BlazorBasicCRUD.Server.Services.EmployeeService
             return response;
         }
 
+        public async Task<PageServiceResponse<List<Employee>>> GetEmployeesByPageAsync(int page, int pageSize)
+        {
+            var response = new PageServiceResponse<List<Employee>>();
+
+            try
+            {
+                var pageCount = Math.Ceiling(_context.Employees.Count() / (float)pageSize);
+                pageCount = Math.Max(pageCount, 1);
+
+                if (page > pageCount)
+                    throw new Exception($"The page {page} does not exist. The maximum number of pages is {pageCount}.");
+
+                var employees = await _context.Employees
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .Include(e => e.Company)
+                    .ToListAsync();
+
+                response.Data = employees;
+                response.CurrentPage = page;
+                response.PageCount = (int)pageCount;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccessful = false;
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
         public async Task<ServiceResponse<string>> UpdateEmployeeAsync(Employee updatedEmployee)
         {
             var response = new ServiceResponse<string>();

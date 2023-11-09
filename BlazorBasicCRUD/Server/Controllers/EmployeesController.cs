@@ -33,6 +33,18 @@ namespace BlazorBasicCRUD.Server.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("pagination")]
+        public async Task<ActionResult<ServiceResponse<Employee>>> GetPage([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var response = await _service.GetEmployeesByPageAsync(page, pageSize);
+
+            if (response.Data is null)
+                return NotFound(response);
+
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<int>>> PostEmployee(Employee newEmployee)
         {
